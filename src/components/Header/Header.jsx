@@ -8,7 +8,7 @@ const Header = () => {
         <div>Hello</div>
         <div className="no-space">
           <span className="input input--makiko">
-            <input className="input__field input__field--makiko" type="text" id="input-16" placeholder="search"></input>
+            <input className="input__field input__field--makiko" type="search" name="search" id="input-16" placeholder="search"></input>
             <label className="input__label input__label--makiko" htmlFor="input-16">
               <span className="input__label-content input__label-content--makiko">Search</span>
             </label>

@@ -1,8 +1,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useLoading} from "../../hooks"
-
-const listItem = [{ "Home": ["phòng khách", "phòng ngủ", "kệ tủ", "bàn trang điểm"]}, "căn hộ & nhà ở", "Sản phẩm nội thất","Thiết bị phụ kiện bếp", "báo giá", "Show room", "video", "Xưởng sản xuất", "liên hệ"]
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+const listItem = ["Home", { "căn hộ & nhà ở": ["phòng khách", "phòng ngủ", "kệ tủ", "bàn trang điểm"]}, "Sản phẩm nội thất","Thiết bị phụ kiện bếp", {"báo giá": ["báo giá tủ bếp", "báo giá nội thất"]}, "Show room", "video", "Xưởng sản xuất", "liên hệ"]
 console.log(listItem)
 const Menu = () => {
     return (
@@ -10,12 +9,20 @@ const Menu = () => {
             <div className="container no-space">
                 {listItem.map( (item) => {
                     if(typeof item === 'object'){
-                        console.log(item)
                         for(let key in item){
                             return (
-                                <li key={item}>
+                                <li key={key} className="parent-cate">
                                     <a href="">{key}</a>
+                                    <FontAwesomeIcon icon={faAngleDown} />
+                                    <ul className='child-cate'>
+                                {item[key].map((child) => {
+                                    return (
+                                        <li key={child}><a href="">{child}</a></li>
+                                    )
+                                })}
+                                    </ul>
                                 </li>
+
                             )
                         }
                     }
