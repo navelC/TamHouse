@@ -1,5 +1,4 @@
-import {Home, NotFound } from "../pages";
-
+import {Home, NotFound, Classify, ProductDetail } from "../pages";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
   {
@@ -10,7 +9,21 @@ export default [
     },
   },
   {
-    path: "/admin",
+    path: ["/category/:category"],
+    exact: true,
+    component: () => {
+      return (<Classify />);
+    },
+  },
+  {
+    path: ["/product/:product"],
+    exact: true,
+    component: () => {
+      return (<ProductDetail />);
+    },
+  },
+  {
+    path: "/YWRtaW4=",
     component: Home,
     exact: true,
   },

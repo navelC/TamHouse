@@ -2,7 +2,7 @@ const Product = (props) => {
     const {product} = props
  return (
     <div>
-        <a href="">
+        <a href={"/product/"+product.name}>
             <div className="zoom-image">
                 <img width={2207} height={1300} src={"/img/"+product.image} alt="" />
                 <div className="tag">
