@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Menu }from "../../components";
 import { config } from "../../const"
 
@@ -6,7 +7,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="container flex-row">
-        <div className="logo">Hello</div>
+      <Link to={"/"} ><div className="logo">Home</div></Link>
         <div className="no-space">
           <span className="input input--makiko">
             <input className="input__field input__field--makiko" type="search" name="search" id="input-16" placeholder="search"></input>

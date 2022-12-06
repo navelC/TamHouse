@@ -16,7 +16,7 @@ export default [
     },
   },
   {
-    path: ["/product/:product"],
+    path: ["/product/:id"],
     exact: true,
     component: () => {
       return (<ProductDetail />);

@@ -2,9 +2,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import React, { useState, useEffect } from 'react';
-const listItem = [{ "căn hộ & nhà ở": ["phòng khách", "phòng ngủ", "kệ tủ", "bàn trang điểm"]}, "Sản phẩm nội thất","Thiết bị phụ kiện bếp", {"báo giá": ["báo giá tủ bếp", "báo giá nội thất"]}, "Show room", "video", "Xưởng sản xuất", "liên hệ"]
+import { Get } from '../../api/categoryService';
+import { Link } from 'react-router-dom';
+import { useLoading } from '../../hooks';
+const listItem = [{name: "báo giá", child: [{name: "báo giá tủ bếp"}, {name: "báo giá nội thất"}]}, {name: "Show room"}, {name: "video"}, {name: "Xưởng sản xuất"}, {name: "liên hệ"}]
 
 const Menu = () => {
+    const [categories, setCategories] = useState([])
     const [scrollPosition, setScrollPosition] = useState(0);
     const [showUp, setShowUp] = useState(false);
     const handleScroll = () => {
@@ -17,35 +21,40 @@ const Menu = () => {
             setShowUp(true)
         else setShowUp(false)
     }, [scrollPosition]);
+    useEffect( () => {
+        async function Load(){
+            const res = await Get();
+            listItem.forEach(element => {
+                (res.data).push(element)
+            });
+            setCategories(res.data)
+        }
+        Load()
+    }, [])
     return (
         <div className="menu">
             <div className="container no-space">
                 <li>
-                    <a href={"/"} >Home</a>
+                    <Link to={"/"} >Home</Link>
                 </li>
-                {listItem.map( (item) => {
-                    if(typeof item === 'object'){
-                        for(let key in item){
-                            return (
-                                <li key={key} className="parent-cate">
-                                    <a href={"/category/"+key}>{key}</a>
-                                    <FontAwesomeIcon icon={faAngleDown} />
-                                    <ul className='child-cate'>
-                                {item[key].map((child) => {
+                {categories.map( (item) => {
+                    if(item.child && item.child.length > 0){
+                        return (<li key={item.name} className="parent-cate">
+                            <Link to={"/category/"+item.name}>{item.name}</Link>
+                            <FontAwesomeIcon icon={faAngleDown} />
+                            <ul className='child-cate'>
+                                {item.child.map((child) => {
                                     return (
-                                        <li key={child}><a href={"/category/"+child}>{child}</a></li>
+                                        <li key={child.name}><Link to={"/category/"+child.name}>{child.name}</Link></li>
                                     )
                                 })}
-                                    </ul>
-                                </li>
-
-                            )
-                        }
+                            </ul>
+                        </li>)
                     }
                     else{
                         return (
-                            <li key={item}>
-                                <a href={"/category/"+item} >{item}</a>
+                            <li key={item.name}>
+                                <Link to={"/category/"+item.name} >{item.name}</Link>
                             </li>
                         )
                     }

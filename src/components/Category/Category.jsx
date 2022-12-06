@@ -1,7 +1,24 @@
+import { useState } from "react"
+import { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { GetByCategory } from "../../api/productService"
+import { useLoading } from "../../hooks"
+import NotFound from "../NotFound"
 import Product from "../Product"
 const Category = (props) => {
-  const {name, limit} = props
-  const products = [{name:"( Nhà ở ) Chị Giang – Bùi Tá Hán – Đà Nẵng", image:"pic1.jpg"}, {name:"( Nhà ở ) Chị Giang – Bùi Tá Hán – Đà Nẵng", image:"pic3.jpg"}, {name:"căn hộ a", image:"pic4.jpg"}, {name:"a", image:"pic5.jpg"}, {name:"căn hộ b", image:"pic2.jpg"}]
+  const [ products, setProducts ] = useState({products: []});
+  const {name, limit} = props.category
+  const [ showLoading, hideLoading ] = useLoading()
+
+  useEffect( () => {
+    async function Load(){
+      showLoading()
+      const res = await GetByCategory(name, limit);
+      setProducts({products: res.data.products.concat(res.data.products).concat(res.data.products).slice(0, limit), count: 12});
+      hideLoading()
+    }
+    Load()
+  }, [name])
     return (
         <div className="wrap">
           <div className="section-title">
@@ -10,13 +27,16 @@ const Category = (props) => {
             <b></b>
           </div>
           <div className="row">
-            {products.map((product) => {
+            {(!products || (products.length === 0)) && (
+              <NotFound />
+            )}
+            {products.products.map((product) => {
               return <Product product={product}/>
             })}
           </div>
-          { limit && ( <div className="center">
+          { products.count > limit && ( <div className="center">
             <b></b>
-            <div className="see-more">Xem Thêm sản phẩm mới</div>
+            <Link to={"/category/"+name}><div className="see-more">Xem Thêm sản phẩm mới</div></Link>
             <b></b>
           </div>)}
          

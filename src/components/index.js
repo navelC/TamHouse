@@ -5,3 +5,4 @@ export { default as Menu } from "./Menu";
 export { default as Category } from "./Category";
 export { default as Product } from "./Product";
 export { default as TopProduct } from "./TopProduct";
+export { default as NotFound } from "./NotFound";

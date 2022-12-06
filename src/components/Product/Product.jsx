@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom"
+
 const Product = (props) => {
     const {product} = props
  return (
     <div>
-        <a href={"/product/"+product.name}>
+        <Link to={"/product/"+product.name}>
             <div className="zoom-image">
-                <img width={2207} height={1300} src={"/img/"+product.image} alt="" />
+                <img width={2207} height={1300} src={process.env.REACT_APP_BASE_URL+"img/"+product.img} alt="" />
                 <div className="tag">
                     05 Th11
                 </div>
@@ -12,7 +14,7 @@ const Product = (props) => {
             <div className="box-text">
                 {product.name}
             </div>
-        </a>
+        </Link>
     </div>
  )
 }

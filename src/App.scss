@@ -18,6 +18,9 @@
   background-color: #282c34;
   color: #efefef;
   font-weight: bold;
+  position: sticky;
+  top: 0px;
+  z-index: 100;
   .logo{
     flex-basis: 10%;
     padding: 0px 20px;
@@ -405,7 +408,7 @@ a{
   }
 }
 .product-detail{
-  width: 100%;
+  width: 70%;
   background: white;
   padding: 20px;
   border-radius: 4px;
@@ -414,8 +417,11 @@ a{
     color: #03a9f4;
     font-size: 1.7em;
   }
-  .content{
+  .descript{
     padding-top: 20px;
+    img{
+      max-width: 100%;
+    }
   }
 }
 @media only screen and (max-width: 1200px) {
